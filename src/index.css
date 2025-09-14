@@ -1,0 +1,45 @@
+:root {
+    --primary: oklch(39.175% 0.18829 293.009);
+    --secondary: oklch(44.857% 0.00906 260.792);
+    --text-base: oklch(19.026% 0.0735 296.388);
+    --base: oklch(97.138% 0.01089 256.847);
+
+    --danger: oklch(73.815% 0.11303 24.13);
+    --warning: oklch(90.411% 0.11048 88.93);
+    --success: oklch(78.875% 0.11552 168.781);
+    --accent: oklch(78.622% 0.12599 200.781);
+    
+    --border: oklch(66.408% 0.16185 299.608);
+    --hover-primary: oklch(46.897% 0.21205 294.115);
+    /*  oklch(46.897% 0.21205 294.115) */
+    --hover-secondary: oklch(0.7315 0.01089 256.847);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    appearance: none;
+    text-decoration: none;
+}
+
+body{
+    color: var(--text-base);
+    font-family: "Comic Relief", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    color: var(--text-base);
+}
+
+main {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.container {
+    grid-column: 2/3;
+}
