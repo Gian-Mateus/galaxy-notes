@@ -16,7 +16,7 @@ export function Sidebar() {
       link: "####",
     },
     {
-      label: "lista",
+      label: "listas",
       icon: ClipboardList,
       link: "####",
     },
