@@ -27,6 +27,7 @@
       "@parameters/*": ["./parameters/*"],
       "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"],
+      "@shared/*": ["../shared/src/*"]
     },
   },
   "include": ["src", "parameters"],

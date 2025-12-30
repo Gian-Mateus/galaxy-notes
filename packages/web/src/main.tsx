@@ -9,10 +9,10 @@ import { SidebarProvider } from './components/sidebar/sidebar.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <SidebarProvider>
-         <BrowserRouter>
-            <AppSidebar/>
-            <App />
-         </BrowserRouter>
-       </SidebarProvider>
+      <BrowserRouter>
+        <AppSidebar/>
+        <App />
+      </BrowserRouter>
+    </SidebarProvider>
   </StrictMode>,
 )

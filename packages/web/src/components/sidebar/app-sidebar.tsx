@@ -3,6 +3,7 @@ import {
   SidebarBrand,
   SidebarItems,
   SidebarFooter,
+  ToggleSidebar,
   type SidebarItem,
 } from "./sidebar";
 import { items, itemsFooter } from "@parameters/items-sidebar";
@@ -21,7 +22,7 @@ export function AppSidebar({
   brandLogo = "/planet.svg",
   brandName = "Galaxy Notes",
   mainItems = items,
-  footerItems: customFooterItems = itemsFooter,
+  footerItems = itemsFooter,
 }: AppSidebarProps) {
   return (
     <Sidebar>
@@ -33,7 +34,10 @@ export function AppSidebar({
       <SidebarItems items={mainItems} />
 
       <SidebarFooter>
-        <SidebarItems items={customFooterItems} />
+        <SidebarItems items={footerItems} />
+        <ToggleSidebar>
+          Ocultar
+        </ToggleSidebar>
       </SidebarFooter>
     </Sidebar>
   );

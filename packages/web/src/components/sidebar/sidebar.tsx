@@ -1,11 +1,51 @@
-import type { ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 import "./sidebar.css";
-import type { LucideIcon } from "lucide-react";
+import { PanelLeftClose, PanelLeft, type LucideIcon } from "lucide-react";
 
 export interface SidebarItem {
   label: string;
   icon: LucideIcon;
   link: string;
+  sizeIcon?: number;
+}
+
+// ============================================================================
+// Context
+// ============================================================================
+interface SidebarContextType {
+  isOpen: boolean;
+  toggle: () => void;
+}
+
+const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
+
+function useSidebar() {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar deve ser usado dentro de SidebarProvider");
+  }
+  return context;
+}
+
+// ============================================================================
+// Sidebar Provider
+// ============================================================================
+interface SidebarProviderProps {
+  children: ReactNode;
+}
+
+export function SidebarProvider({ children }: SidebarProviderProps) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  return (
+    <SidebarContext.Provider value={{ isOpen, toggle }}>
+      <div className="sidebar-provider">{children}</div>
+    </SidebarContext.Provider>
+  );
 }
 
 // ============================================================================
@@ -16,22 +56,24 @@ interface SidebarProps {
 }
 
 export function Sidebar({ children }: SidebarProps) {
+  const { isOpen } = useSidebar();
+
   return (
-    <nav className="sidebar">
+    <nav className={`sidebar ${isOpen ? "" : "closed"}`}>
       <div className="sidebar-wrapper">{children}</div>
     </nav>
   );
 }
 
 // ============================================================================
-// Sidebar Brand (Logo/Título)
+// Sidebar Brand
 // ============================================================================
 export function SidebarBrand({ children }: SidebarProps) {
   return <div className="sidebar-brand">{children}</div>;
 }
 
 // ============================================================================
-// Sidebar Items (Aceita items como prop OU children manual)
+// Sidebar Items
 // ============================================================================
 interface SidebarItemsProps {
   items?: SidebarItem[];
@@ -62,7 +104,7 @@ export function SidebarItems({
 }
 
 // ============================================================================
-// Sidebar Item Default (renderização padrão de um item)
+// Sidebar Item Default
 // ============================================================================
 interface SidebarItemDefaultProps {
   item: SidebarItem;
@@ -74,7 +116,7 @@ export function SidebarItemDefault({ item }: SidebarItemDefaultProps) {
   return (
     <li>
       <a href={item.link}>
-        <span>{Icon && <Icon size={32} />}</span>
+        <span>{Icon && <Icon size={item.sizeIcon || 32} />}</span>
         <span>{item.label}</span>
       </a>
     </li>
@@ -89,17 +131,15 @@ export function SidebarFooter({ children }: SidebarProps) {
 }
 
 // ============================================================================
-// Sidebar Provider (wrapper que envolve Sidebar + Conteúdo)
+// Toggle Sidebar
 // ============================================================================
-export function SidebarProvider({ children }: SidebarProps) {
-  
-  /*
-  * Futuramente utilizar o provider, para dar contexto do sidebar aberto ou fechado
-  * E também dar contexto do componente ativo
-  */
+export function ToggleSidebar({ children }: SidebarProps) {
+  const { isOpen, toggle } = useSidebar();
+
   return (
-    <div className="sidebar-provider">
-      {children}
-    </div>
+    <button onClick={toggle} className="sidebar-toggle">
+      {isOpen ? <PanelLeftClose size={24} /> : <PanelLeft size={24} />}
+      <span>{children}</span>
+    </button>
   );
 }

@@ -43,10 +43,12 @@ export const itemsFooter: SidebarItem[] = [
     label: "Configurações",
     icon: Bolt,
     link: "####",
+    sizeIcon: 24,
   },
   {
     label: "Sair",
     icon: LogOut,
     link: "####",
+    sizeIcon: 24,
   },
 ];
