@@ -1,69 +1,128 @@
-# React + TypeScript + Vite
+# 🌌 Galaxy Notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo de notas inspirado no universo, com um editor de texto rico e uma interface galáctica imersiva.
 
-Currently, two official plugins are available:
+## 📁 Estrutura do Projeto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este é um monorepo que contém:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+galaxy-notes/
+├── packages/
+│   ├── web/          # Frontend React + Vite
+│   └── api/          # Backend Express + Prisma
+├── parameters/       # Parâmetros e configurações
+├── reference/        # Referências e documentação
+└── package.json      # Configuração do monorepo
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Começando
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Pré-requisitos
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v18 ou superior)
+- npm (v9 ou superior)
+
+### Instalação
+
+Na raiz do projeto, instale todas as dependências:
+
+```bash
+npm install
 ```
+
+Isso instalará as dependências de todos os workspaces (api e web).
+
+## 🛠️ Scripts Disponíveis
+
+### Desenvolvimento
+
+```bash
+# Roda API e Web simultaneamente
+npm run dev
+
+# Roda apenas a API
+npm run dev:api
+
+# Roda apenas o Web
+npm run dev:web
+```
+
+### Build
+
+```bash
+# Build do projeto web
+npm run build
+
+# ou
+npm run build:web
+```
+
+### Produção
+
+```bash
+# Inicia a API em modo produção
+npm run start:api
+```
+
+### Outros comandos
+
+```bash
+# Lint em todos os projetos
+npm run lint
+
+# Limpar node_modules
+npm run clean
+
+# Reinstalar todas as dependências
+npm run install:all
+```
+
+## 📦 Workspaces
+
+### @galaxy-notes/web
+
+Frontend construído com:
+- React 19
+- Vite
+- TypeScript
+- React Router
+- GSAP (animações)
+- Lucide React (ícones)
+
+### @galaxy-notes/api
+
+Backend construído com:
+- Express
+- Prisma
+- SQLite (Better SQLite3)
+- CORS
+
+## 🔧 Instalando Dependências em Workspaces Específicos
+
+```bash
+# Instalar no workspace web
+npm install <pacote> --workspace=@galaxy-notes/web
+
+# Instalar no workspace api
+npm install <pacote> --workspace=@galaxy-notes/api
+
+# Exemplo:
+npm install slate slate-react --workspace=@galaxy-notes/web
+```
+
+## 📝 Desenvolvimento
+
+1. O frontend roda em `http://localhost:5173` (Vite)
+2. O backend roda em `http://localhost:3000` (Express)
+
+## 🌟 Features
+
+- Interface galáctica com animações suaves
+- Editor de texto rico
+- Sistema de notas com banco de dados
+- Design responsivo
+
+## 📄 Licença
+
+Privado

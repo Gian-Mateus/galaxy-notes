@@ -1,0 +1,122 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ============================================
+// USUÁRIOS
+// ============================================
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  login     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  notes       Note[]
+  lists       List[]
+  kanbans     Kanban[]
+  eventsTasks EventTask[]
+
+  @@map("users")
+}
+
+// ============================================
+// NOTAS
+// ============================================
+model Note {
+  id        String   @id @default(cuid())
+  userId    String
+  content   String   // JSON do Slate
+  shared    String?  // JSON: [{ "userId": "123", "permission": "view|edit" }]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("notes")
+}
+
+// ============================================
+// LISTAS
+// ============================================
+model List {
+  id        String   @id @default(cuid())
+  userId    String
+  content   String   // JSON com as tarefas
+  shared    String?  // JSON: [{ "userId": "123", "permission": "view|edit" }]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("lists")
+}
+
+// ============================================
+// QUADROS KANBAN
+// ============================================
+model Kanban {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  shared    String?  // JSON: [{ "userId": "123", "permission": "view|edit" }]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cards Card[]
+
+  @@index([userId])
+  @@map("kanbans")
+}
+
+// ============================================
+// CARDS DO KANBAN
+// ============================================
+model Card {
+  id        String   @id @default(cuid())
+  kanbanId  String
+  content   String   // JSON com detalhes do card (título, descrição, status, posição, etc)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  kanban Kanban @relation(fields: [kanbanId], references: [id], onDelete: Cascade)
+
+  @@index([kanbanId])
+  @@map("cards")
+}
+
+// ============================================
+// EVENTOS E TAREFAS (AGENDA)
+// ============================================
+model EventTask {
+  id        String    @id @default(cuid())
+  userId    String
+  title     String
+  date      DateTime? // data única para tarefas
+  dateInit  DateTime? // início de evento
+  dateEnd   DateTime? // fim de evento
+  isTask    Boolean   @default(false) // true = tarefa, false = evento
+  reminder  DateTime?
+  shared    String?   // JSON: [{ "userId": "123", "permission": "view|edit" }]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([date])
+  @@index([dateInit])
+  @@map("events_tasks")
+}

@@ -75,7 +75,7 @@ export function SidebarItemDefault({ item }: SidebarItemDefaultProps) {
     <li>
       <a href={item.link}>
         <span>{Icon && <Icon size={32} />}</span>
-        {item.label}
+        <span>{item.label}</span>
       </a>
     </li>
   );
