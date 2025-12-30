@@ -1,84 +1,88 @@
-.sidebar{
-    grid-column: 1/2;
-    display: flex;
+.sidebar-provider{
     width: 100%;
-    max-width: 20rem;
     height: 100vh;
-    padding: 10px;
-    background-color: var(--base);
+    display: grid;
+    grid-template-columns: min-content auto;
+    
+    main{
+        min-height: 100vh;
+        overflow-y: scroll;
+        grid-column: 2/3;
+    }
+    
+    .sidebar{
+        max-height: 100vh;
+        min-width: 10rem;
+        max-width: 24rem;
+        padding: 1rem;
 
-    .sidebar-wrapper{
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-
-        .sidebar-brand{
+        .sidebar-wrapper{
+            height: 100%;
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            img{
-                max-width: 24rem;
-                width: 5rem;
-            }
-        }
-
-        .sidebar-group-items{
-            margin-top: 10px;
-            text-transform: uppercase;
-            display: flex;
-            flex: 1;
-
-            .sidebar-list-items{
-                display: flex;
-                flex-direction: column;
-                gap: 0.75rem;
-                padding-left: 10px;
-                margin-top: 20px;
+            flex-direction: column;
+            
+            .sidebar-group-items{
+                flex: 1;
                 
-                li{
-                    a{
-                        color: var(--primary);
-                        display: inline-flex;
+                .sidebar-list-items{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+                    justify-content: center;
+                    height: 100%;
+                    
+                    & > li, a {
+                        display: flex;
+                        width: 100%;
+                        gap:0.25rem;
                         align-items: center;
-                        flex: 0 0 auto;
-                        gap: 0.25rem;
-                        padding: 5px 10px;
+                        transition: all 0.3s ease-in-out;
+                    }
+                    
+                    & > li{
                         border-radius: 10px;
-                        transition: all 0.2s ease;
-                        &:hover{
-                            background-color: var(--hover-primary);
-                            color: var(--base);
-                        }
+                        padding: 5px 5px 5px 8px;
+                    }
+                    
+                    & > li:hover{
+                        background-color: var(--primary);
+                    }
+                    
+                    & > li > a:hover{
+                        color: var(--base);
                     }
                 }
             }
-        }
-
-        .sidebar-footer{
-            padding-left: 10px;
-            margin-bottom: 20px;
-
-            .sidebar-footer-group{
+            
+            .sidebar-brand{
                 display: flex;
                 flex-direction: column;
-                gap: 10px;
-
-                li{
-                    a{
-                        color: var(--primary);
-                        display: inline-flex;
-                        align-items: center;
-                        flex: 0 0 auto;
-                        gap: 0.25rem;
-                        padding: 5px 10px;
-                        border-radius: 10px;
-                        transition: all 0.2s ease;
-                        &:hover{
-                            background-color: var(--hover-primary);
-                            color: var(--base);
-                        }
-                    }
+                min-height: 1.5rem;
+                img{
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
                 }
+                
+                h2{
+                    text-wrap: nowrap;
+                }
+            }
+            
+            .sidebar-footer{
+                position: relative;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 0.25rem;
+                    background-color: var(--text-base);
+                    opacity: 0.5;
+                    border-radius: 50px;
+                }
+                padding-top: 1rem;
             }
         }
     }
