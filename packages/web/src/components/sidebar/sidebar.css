@@ -1,109 +1,185 @@
-.sidebar-provider{
+.sidebar-provider {
     width: 100%;
     height: 100vh;
     display: grid;
     grid-template-columns: min-content auto;
-    
-    main{
-        min-height: 100vh;
-        overflow-y: scroll;
-        grid-column: 2/3;
-    }
-    
-    .sidebar{
-        max-height: 100vh;
-        min-width: 10rem;
-        max-width: 24rem;
-        padding: 1rem;
-        background-color: var(--base);
+}
 
-        .sidebar-wrapper{
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            
-            .sidebar-group-items{
-                flex: 1;
-                overflow-y: auto;
-                .sidebar-list-items{
-                    display: flex;
-                    flex-direction: column;
-                    align-items: start;
-                    justify-content: center;
-                    height: 100%;
-                    
-                    & > li, a {
-                        display: flex;
-                        width: 100%;
-                        gap:0.25rem;
-                        align-items: center;
-                        transition: all 0.3s ease-in-out;
-                    }
-                    
-                    & > li{
-                        border-radius: 10px;
-                        padding: 5px 5px 5px 8px;
-                    }
-                    
-                    & > li:hover{
-                        background-color: var(--primary);
-                        a{
-                            color: var(--base);
-                        }
-                    }
-                }
-            }
-            
-            .sidebar-brand{
-                display: flex;
-                flex-direction: column;
-                min-width: 1.5rem;
-                img{
-                    width: 100%;
-                    height: auto;
-                    object-fit: cover;
-                    padding: 1rem;
-                }
-                
-                h2{
-                    text-wrap: nowrap;
-                    font-weight: 600;
-                }
-            }
-            
-            .sidebar-footer{
-                position: relative;
-                padding-top: 1rem;
-                display: flex;
-                flex-direction: column;
-                &:before{
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 0.2rem;
-                    background-color: var(--text-base);
-                    opacity: 0.5;
-                    border-radius: 50px;
-                }
-            }
-            
-            .sidebar-toggle{
-                border: none;
-                color: var(--text-base);
-                display: inline-flex;
-                margin-top: 0.25rem;
-                gap:0.25rem;
-                align-items: center;
-                transition: all 0.3s ease-in-out;
-                border-radius: 10px;
-                padding: 5px 5px 5px 8px;
-                &:hover{
-                    background-color: var(--primary);
-                    color: var(--base);
-                }
-            }
-        }
-    }
+.sidebar-provider main {
+    min-height: 100vh;
+    overflow-y: scroll;
+    grid-column: 2/3;
+}
+
+/* ============================================================================
+   Sidebar Base
+   ============================================================================ */
+
+.sidebar {
+    max-height: 100vh;
+    min-width: 6rem;
+    max-width: 10rem;
+    width: 16rem;
+    padding: 0.25rem;
+    background-color: var(--base);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+/* ============================================================================
+   Sidebar Closed State
+   ============================================================================ */
+
+.sidebar.closed {
+    min-width: 4rem;
+    max-width: 4rem;
+    width: 4rem;
+}
+
+.sidebar.closed .sidebar-brand {
+    min-width: 2rem;
+    margin-top: 2rem;
+}
+
+.sidebar.closed .sidebar-brand-name,
+.sidebar.closed .item-label,
+.sidebar.closed .sidebar-toggle > span {
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.sidebar.closed .sidebar-list-items > li,
+.sidebar.closed .sidebar-list-items a,
+.sidebar.closed .sidebar-toggle {
+    gap: 0 !important;
+    justify-content: center;
+}
+
+/* ============================================================================
+   Sidebar Wrapper
+   ============================================================================ */
+
+.sidebar-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================================
+   Sidebar Brand
+   ============================================================================ */
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-brand img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-brand h2 {
+    text-wrap: nowrap;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   Sidebar Items Group
+   ============================================================================ */
+
+.sidebar-group-items {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar-list-items {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    height: 100%;
+}
+
+.sidebar-list-items > li,
+.sidebar-list-items a {
+    display: flex;
+    width: 100%;
+    gap: 0.5rem;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-list-items > li {
+    border-radius: 10px;
+    padding: 0.25rem;
+}
+
+.sidebar-list-items > li:hover {
+    background-color: var(--primary);
+}
+
+.sidebar-list-items > li:hover a {
+    color: var(--base);
+}
+
+.sidebar-list-items .item-label {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   Sidebar Footer
+   ============================================================================ */
+
+.sidebar-footer {
+    position: relative;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.2rem;
+    background-color: var(--text-base);
+    opacity: 0.5;
+    border-radius: 50px;
+}
+
+/* ============================================================================
+   Sidebar Toggle
+   ============================================================================ */
+
+.sidebar-toggle {
+    border: none;
+    color: var(--text-base);
+    display: inline-flex;
+    margin-top: 0.25rem;
+    gap: 0.5rem;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+    padding: 0.25rem;
+}
+
+.sidebar-toggle > span {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--primary);
+    color: var(--base);
 }
